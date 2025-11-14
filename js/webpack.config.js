@@ -21,9 +21,7 @@ module.exports = {
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
     },
-    plugins: [
-        new LicenseWebpackPlugin()
-    ],
+    plugins: [],
     module: {
         rules: [
             {
@@ -37,14 +35,23 @@ module.exports = {
             },
             {
                 test: /\.scss$/i,
-                use: ["style-loader", "css-loader", {
-                    loader: "sass-loader",
-                    options: {
-                        sassOptions: {
-                            includePaths: ["node_modules/bootstrap/scss"]
-                        }
-                    }
-                }
+                use: [
+                    "style-loader",
+                    "css-loader",
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sassOptions: {
+                                // For Dart Sass, use loadPaths; includePaths kept for compatibility.
+                                includePaths: [
+                                    path.resolve(__dirname, "node_modules/bootstrap/scss"),
+                                ],
+                                loadPaths: [
+                                    path.resolve(__dirname, "node_modules/bootstrap/scss"),
+                                ],
+                            },
+                        },
+                    },
                 ],
             },
         ],
